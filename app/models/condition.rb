@@ -6,10 +6,9 @@ class Condition < ActiveHash::Base
     { id: 3, name: 'やや傷や汚れあり' },
     { id: 4, name: '傷や汚れあり' },
     { id: 5, name: '本・音楽・ゲーム' },
-    { id: 6, name: '全体的に状態が悪い' },
+    { id: 6, name: '全体的に状態が悪い' }
   ]
 
   include ActiveHash::Associations
   has_many :items
-
-  end
+end
