@@ -13,6 +13,11 @@ RSpec.describe Item, type: :model do
     end
   
     context '新規登録できないとき' do
+      it 'imageが空だと保存できない' do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Image can't be blank")
+      end
       it 'item_nameが空だと保存できない' do
         @item.item_name = ''
         @item.valid?
@@ -63,15 +68,15 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
-      it 'daysが未選択だと保存できない' do
-        @item.days_id = ''
+      it 'scheduled_dayが未選択だと保存できない' do
+        @item.scheduled_day_id = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("Days can't be blank")
+        expect(@item.errors.full_messages).to include("Scheduled day can't be blank")
       end
-      it 'daysが0だと保存できない' do
-        @item.days_id = 0
+      it 'scheduled_dayが0だと保存できない' do
+        @item.scheduled_day_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Days can't be blank")
+        expect(@item.errors.full_messages).to include("Scheduled day can't be blank")
       end
       it 'priceが空だと保存できない' do
         @item.price = ''

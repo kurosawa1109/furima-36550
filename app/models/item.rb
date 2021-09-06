@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   belongs_to :postage
   belongs_to :condition
   belongs_to :prefecture
-  belongs_to :days
+  belongs_to :scheduled_day
 
   with_options presence: true do
     validates :image
@@ -18,7 +18,7 @@ class Item < ApplicationRecord
      validates :condition_id
      validates :prefecture_id
      validates :postage_id
-     validates :days_id
+     validates :scheduled_day_id
    end
     validates :price, numericality: { with: /\A[0-9]+\z/}
     validates :price,numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999}

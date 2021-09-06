@@ -6,7 +6,7 @@ FactoryBot.define do
     condition_id   { 1 }
     postage_id     { 1 }
     prefecture_id  { 1 }
-    days_id        { 1 }
+    scheduled_day_id        { 1 }
     price          { 300 }
     user_id        { 1 }
     
