@@ -8,7 +8,7 @@ class BuysController < ApplicationController
   end
 
   def create
-    @buy_shipping_address= BuyShippingAddress.new(buy_params)
+    @buy_shipping_address = BuyShippingAddress.new(buy_params)
     if @buy_shipping_address.valid?
       pay_item
       @buy_shipping_address.save
@@ -21,7 +21,9 @@ class BuysController < ApplicationController
   private
 
   def buy_params
-    params.require(:buy_shipping_address).permit(:postal_code, :prefecture_id, :city, :house_number, :building, :phone_number, :price).merge(user_id: current_user.id,item_id: params[:item_id],token: params[:token])
+    params.require(:buy_shipping_address).permit(:postal_code, :prefecture_id, :city, :house_number, :building, :phone_number, :price).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def set_buy
@@ -29,7 +31,7 @@ class BuysController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: buy_params[:token],
@@ -38,8 +40,6 @@ class BuysController < ApplicationController
   end
 
   def redirect_root
-    if current_user == @item.user || @item.buy.present?
-      redirect_to root_path 
-    end
+    redirect_to root_path if current_user == @item.user || @item.buy.present?
   end
 end
