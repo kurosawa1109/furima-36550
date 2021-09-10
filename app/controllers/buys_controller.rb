@@ -1,5 +1,7 @@
 class BuysController < ApplicationController
+  before_action :authenticate_user!, only: :index
   before_action :set_buy
+  before_action :redirect_root
 
   def index
     @buy_shipping_address = BuyShippingAddress.new
@@ -33,5 +35,11 @@ class BuysController < ApplicationController
       card: buy_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def redirect_root
+    if current_user == @item.user || @item.buy.present?
+      redirect_to root_path 
+    end
   end
 end
